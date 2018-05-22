@@ -1,9 +1,23 @@
 {
     "name": "harvardartmuseums/laravel-hamapi",
-    "autoload": {
-        "psr-0" : {
-            "Harvardartmuseums\\HamAPI" : "src"
+    "description": "HAM API integration for Laravel",
+    "keywords": ["laravel", "art", "harvard"],
+    "authors": [
+        {
+            "name": "Harvard Art Museums",
+            "email": "support@harvardartmuseums.org"
         }
+    ],
+    "require": {
+        "php": ">=7.0",
+    },
+    "autoload": {
+        "psr-4": {
+            "Harvarartmuseums\\HamAPI\\": "src/"
+        },
+        "files": [
+            "src/VarnishHelper.php"
+        ]
     },
     "extra": {
         "laravel": {
@@ -14,5 +28,5 @@
                 "HamApi": "Harvardartmuseums\\HamAPI\\HamApiFacade"
             }
         }
-    },
+    }
 }
