@@ -12,8 +12,8 @@
         "php": ">=7.0"
     },
     "autoload": {
-        "psr-4": {
-            "Harvardartmuseums\\HamAPI\\": "src/"
+        "psr-0": {
+            "Harvardartmuseums\\HamAPI\\": "src"
         },
         "files": [
             "src/VarnishHelper.php"
