@@ -14,7 +14,7 @@ class HamApiServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/config/hamapi.php' => config_path('hamapi.php'),
+            __DIR__. '/../config/debugbar.php' => config_path('hamapi.php'),
         ]);
     }
    
