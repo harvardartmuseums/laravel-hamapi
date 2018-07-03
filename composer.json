@@ -16,7 +16,9 @@
             "Harvardartmuseums\\HamAPI\\": "src"
         },
         "files": [
-            "src/VarnishHelper.php"
+            "src/VarnishHelper.php",
+            "src/BrowseHelper.php",
+            "src/BrowseService.php"
         ]
     },
     "extra": {
