@@ -2,7 +2,7 @@
 
 namespace Harvardartmuseums\HamAPI\Classes;
 
-use HamAPI\HamApi;
+use Harvardartmuseums\HamAPI\HamApi;
 
 class HamObject extends HamClass
 {
