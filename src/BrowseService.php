@@ -3,7 +3,7 @@
 namespace Harvardartmuseums\HamAPI;
 
 use Illuminate\Support\Facades\Log;
-use Harvardartmuseums\HamAPI\ClassesHamObjectFacade as HamObject;
+use Harvardartmuseums\HamAPI\Classes\HamObjectFacade as HamObject;
 
 class BrowseService
 {
