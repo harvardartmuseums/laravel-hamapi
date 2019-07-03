@@ -3,6 +3,7 @@
 namespace Harvardartmuseums\HamAPI;
 
 use Illuminate\Support\Facades\Log;
+use Harvardartmuseums\HamAPI\ClassesHamObjectFacade as HamObject;
 
 class BrowseService
 {
@@ -14,7 +15,7 @@ class BrowseService
       //Try exact match with gallery number
         if ($filters['q'] && $filters['onview']) {
             // Log::info("Inside block 1");
-            $result = \HamObject::limit($limit)
+            $result = HamObject::limit($limit)
             ->group($filters['group'])
             ->from($offset)
             ->gallery($filters['q'])
@@ -36,7 +37,7 @@ class BrowseService
 
         if ($filters['q'] && !$filters['onview']) {
             // Log::info("Inside block 2");
-            $result = \HamObject::limit($limit)
+            $result = HamObject::limit($limit)
             ->group($filters['group'])
             ->from($offset)
             ->gallery($filters['q'])
@@ -59,7 +60,7 @@ class BrowseService
       //Try exact match with objectnumber
         if ($filters['q'] && (!$result || !$result->info->totalrecords)) {
             // Log::info("Inside block 3");
-            $result = \HamObject::limit($limit)
+            $result = HamObject::limit($limit)
             ->group($filters['group'])
             ->from($offset)
             ->objectnumber($filters['q'])
@@ -82,7 +83,7 @@ class BrowseService
 
         if (!$result || !$result->info->totalrecords) {
             // Log::info("Inside block 4");
-            $result = \HamObject::limit($limit)
+            $result = HamObject::limit($limit)
             ->group($filters['group'])
             ->from($offset)
             ->classification($filters['classification'])
