@@ -27,84 +27,84 @@ class HamApiServiceProvider extends ServiceProvider
         });
 
         $this->app->bind('hamclass', function () {
-            return new Classes\HamClass;
+            return new \Harvardartmuseums\HamAPI\Classes\HamClass;
         });
 
         $this->app->bind('hamobject', function () {
-            return new Classes\HamObject;
+            return new \Harvardartmuseums\HamAPI\Classes\HamObject;
         });
 
         $this->app->bind('hamobjectentries', function () {
-            return new Classes\HamObjectEntries;
+            return new \Harvardartmuseums\HamAPI\Classes\HamObjectEntries;
         });
 
         $this->app->bind('hamexhibition', function () {
-            return new Classes\HamExhibition;
+            return new \Harvardartmuseums\HamAPI\Classes\HamExhibition;
         });
 
         $this->app->bind('hamgroup', function () {
-            return new Classes\HamGroup;
+            return new \Harvardartmuseums\HamAPI\Classes\HamGroup;
         });
 
         $this->app->bind('hamperson', function () {
-            return new Classes\HamPerson;
+            return new \Harvardartmuseums\HamAPI\Classes\HamPerson;
         });
 
         $this->app->bind('hampublication', function () {
-            return new Classes\HamPublication;
+            return new \Harvardartmuseums\HamAPI\Classes\HamPublication;
         });
 
         $this->app->bind('hamgallery', function () {
-            return new Classes\HamGallery;
+            return new \Harvardartmuseums\HamAPI\Classes\HamGallery;
         });
 
         $this->app->bind('hamplace', function () {
-            return new Classes\HamPlace;
+            return new \Harvardartmuseums\HamAPI\Classes\HamPlace;
         });
 
         $this->app->bind('hamclassification', function () {
-            return new Classes\HamClassification;
+            return new \Harvardartmuseums\HamAPI\Classes\HamClassification;
         });
 
         $this->app->bind('hamspectrum', function () {
-            return new Classes\HamSpectrum;
+            return new \Harvardartmuseums\HamAPI\Classes\HamSpectrum;
         });
 
         $this->app->bind('hamperiod', function () {
-            return new Classes\HamPeriod;
+            return new \Harvardartmuseums\HamAPI\Classes\HamPeriod;
         });
 
 
         $this->app->bind('hamculture', function () {
-            return new Classes\HamCulture;
+            return new \Harvardartmuseums\HamAPI\Classes\HamCulture;
         });
 
         $this->app->bind('hamcentury', function () {
-            return new Classes\HamCentury;
+            return new \Harvardartmuseums\HamAPI\Classes\HamCentury;
         });
 
         $this->app->bind('hammedium', function () {
-            return new Classes\HamMedium;
+            return new \Harvardartmuseums\HamAPI\Classes\HamMedium;
         });
 
         $this->app->bind('hamcustomcollection', function () {
-            return new Classes\HamCustomCollection;
+            return new \Harvardartmuseums\HamAPI\Classes\HamCustomCollection;
         });
 
         $this->app->bind('hamcustomcollectionvalue', function () {
-            return new Classes\HamCustomCollectionValue;
+            return new \Harvardartmuseums\HamAPI\Classes\HamCustomCollectionValue;
         });
 
         $this->app->bind('hamtechnique', function () {
-            return new Classes\HamTechnique;
+            return new \Harvardartmuseums\HamAPI\Classes\HamTechnique;
         });
 
         $this->app->bind('hamcolor', function () {
-            return new Classes\HamColor;
+            return new \Harvardartmuseums\HamAPI\Classes\HamColor;
         });
 
         $this->app->bind('hamworktype', function () {
-            return new Classes\HamWorktype;
+            return new \Harvardartmuseums\HamAPI\Classes\HamWorktype;
         });
 
         $this->app->alias('HamApi', \Harvardartmuseums\HamAPI\HamApi::class);
