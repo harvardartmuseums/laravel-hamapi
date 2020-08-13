@@ -1,4 +1,4 @@
-<?php namespace HamAPI;
+<?php namespace Harvardartmuseums\HamAPI;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
