@@ -25,11 +25,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Harvardartmuseums\\HamAPI\\HamApiServiceProvider"
-            ],
-            "aliases": {
-                "HamApi": "Harvardartmuseums\\HamAPI\\HamApiFacade"
-            }
+                "Harvardartmuseums\\HamAPI\\Providers\\HamApiServiceProvider"
+            ]
         }
     }
 }
