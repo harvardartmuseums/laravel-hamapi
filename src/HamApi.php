@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Log;
 class HamApi
 {
 
-    const CACHE_TIME = 15; #(minutes)
+    const CACHE_TIME = 60 * 15; #(seconds)
 
     private $_api_key = null;
     private $_api_url = null;
