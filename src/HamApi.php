@@ -25,11 +25,9 @@ class HamApi
     public function getDatas($object = null, $count = false)
     {
         $url = $this->buildUrl($object);
-
         $result = Cache::remember(sha1(implode('-', [$url, $count])), self::CACHE_TIME, function () use ($url, $count) {
             return $this->callApi('GET', $url, $count);
         });
-
         return $result;
     }
 
@@ -93,13 +91,13 @@ class HamApi
 
                     foreach ($value as $key => $val) {
                         if ($key == 'objectnumber' && $attribute == 'q') {
-                            $url .= $key . ':"' . $val . '",';
+                            $url .= $key . ':"' . urlencode($val) . '",';
                         } else if ($key && $key == 'temporalorder') {
-                            $url .= $key . ':' . $val . '';
+                            $url .= $key . ':' . urlencode($val) . '';
                         } else if ($key && $attribute == 'usedby') {
-                            $url .= $key . ':' .$val . '';
+                            $url .= $key . ':' . urlencode($val) . '';
                         } else {
-                            $url .= str_replace(' ', '%20', $val);
+                            $url .= str_replace(' ', '%20', urlencode($val));
                             if ($key + 1 < sizeof($value)) {
                                 $url .= '|';
                             }
@@ -112,9 +110,9 @@ class HamApi
             if ($attribute == 'custom' && isset($value) && (!empty($value) || $value === '0' )) {
                 foreach ($value as $customName => $customValue) {
                     if (is_array($customValue)) {
-                        $url .= '&' . $customName . '=' . str_replace(' ', '%20', implode('|', $customValue));
+                        $url .= '&' . $customName . '=' . str_replace(' ', '%20', implode('|', urlencode($customValue)));
                     } else {
-                        $url .= '&' . $customName . '=' . str_replace(' ', '%20', $customValue);
+                        $url .= '&' . $customName . '=' . str_replace(' ', '%20', urlencode($customValue));
                     }
                 }
             }
