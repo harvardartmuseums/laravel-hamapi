@@ -110,7 +110,7 @@ class HamApi
             if ($attribute == 'custom' && isset($value) && (!empty($value) || $value === '0' )) {
                 foreach ($value as $customName => $customValue) {
                     if (is_array($customValue)) {
-                        $url .= '&' . $customName . '=' . str_replace(' ', '%20', implode('|', urlencode($customValue)));
+                        $url .= '&' . $customName . '=' . str_replace(' ', '%20', implode('|', $customValue));
                     } else {
                         $url .= '&' . $customName . '=' . str_replace(' ', '%20', urlencode($customValue));
                     }
