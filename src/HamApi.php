@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
+
 
 class HamApi
 {
@@ -125,7 +127,7 @@ class HamApi
     {
 
         if ($returnFormat == 'object') {
-            $result = json_decode($this->curlOp($method, $url, $datas));
+            $result = json_decode(Http::get($url));
 
             if (!empty($result->status)) {
                 if ($result->status == '400') {
