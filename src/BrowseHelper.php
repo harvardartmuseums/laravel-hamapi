@@ -23,6 +23,7 @@ public function results(Request $request)
         'medium' => [],
         'place' => [],
         'gallery' => [],
+        'exhibition' => [],
         'person' => [],
         'worktype' => [],
         'color' => [],
