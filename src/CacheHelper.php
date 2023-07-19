@@ -25,11 +25,11 @@ class CacheHelper
 
         if ($cacheEnabled === true){
           if($cacheServerStatus) {
-                $array = json_decode(json_encode($data));
+                $array = json_decode(json_encode($data), true);
                 $ids = str_replace ( 'https://ids.lib.harvard.edu', $imageCacheHost, $array);
                 $data = str_replace ( 'https://nrs.harvard.edu', $nrsProxyHost, $ids);
             }
         }
-        return $data;
+        return json_decode(json_encode($data));
     }
 }
