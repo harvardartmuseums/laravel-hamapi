@@ -78,7 +78,7 @@ class HamClass
         $hamAPI = new HamApi();
         $result = $hamAPI->getDatas($this);
         $this->cleanFilters();
-        //$result = \Harvardartmuseums\HamAPI\VarnishHelper::varnishify($result);
+        $result = \Harvardartmuseums\HamAPI\CacheHelper::cacheify($result);
         return $result;
     }
 
@@ -88,7 +88,7 @@ class HamClass
         $result = $hamAPI->getDatas($this, true);
 
         $this->cleanFilters();
-        //$result = \Harvardartmuseums\HamAPI\VarnishHelper::varnishify($result);
+        //$result = \Harvardartmuseums\HamAPI\CacheHelper::varnishify($result);
         return $result;
     }
 
