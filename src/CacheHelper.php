@@ -14,22 +14,22 @@ class CacheHelper
     {
         $cacheServerStatus = 0;
 
-        Cache::remember('cache_server_status', 900, function () {
-            return is_array(@get_headers(config('hamapi.imagecache.ids')));
-        });
-
-        $cacheServerStatus = Cache::get('cache_server_status');
+        
         $imageCacheHost = config('hamapi.imagecache.ids');
         $nrsProxyHost = config('hamapi.imagecache.nrs');
         $cacheEnabled = config('hamapi.imagecache.enabled');
 
+        $cacheServerStatus = Cache::remember('cache_server_status', 900, function () {
+            return is_array(@get_headers('https://' . config('hamapi.imagecache.ids')));
+        });
+
+       
         if ($cacheEnabled === true){
-          if($cacheServerStatus) {
-                $array = json_decode(json_encode($data), true);
-                $ids = str_replace ( 'https://ids.lib.harvard.edu', $imageCacheHost, $array);
-                $data = str_replace ( 'https://nrs.harvard.edu', $nrsProxyHost, $ids);
+            if($cacheServerStatus) {
+                    $data = json_decode(str_replace ('ids.lib.harvard.edu', $imageCacheHost, json_encode($data), $ids_count));
+                    $data = json_decode(str_replace ('nrs.harvard.edu', $nrsProxyHost, json_encode($data), $nrs_count));    
             }
         }
-        return json_decode(json_encode($data));
+        return $data;
     }
 }
