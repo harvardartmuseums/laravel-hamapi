@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
+use Exception;
+use Illuminate\Http\Client\RequestException;
 
 
 class HamApi
@@ -125,78 +127,50 @@ class HamApi
 
     private function callApi($method, $url, $includeInfos = false, $datas = null, $returnFormat = 'object')
     {
+        try {
+            if ($returnFormat == 'object') {
+                $result = json_decode(Http::retry(3, 100)->get($url));
 
-        if ($returnFormat == 'object') {
-            $result = json_decode(Http::get($url));
-
-            if (!empty($result->status)) {
-                if ($result->status == '400') {
-                    return false;
-                } elseif ($result->status == '401') {
-                    ///401 Unauthorized
-                    //Similar to 403 Forbidden, but specifically for use when authentication is possible but has failed or not yet been provided.
-                    //The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource.
-                    return false;
-                } elseif ($result->status == '403') {
-                    //404 Forbidden
-                    //The request was a legal request, but the server is refusing to respond to it. Unlike a 401 Unauthorized response, authenticating will make no difference.
-                    return false;
-                } elseif ($result->status == '500') {
-                    //500 Internal Server Error
-                    //A generic error message, given when no more specific message is suitable.
-                    return false;
+                if (!empty($result->status)) {
+                    if ($result->status == '400') {
+                        return false;
+                    } elseif ($result->status == '401') {
+                        return false;
+                    } elseif ($result->status == '403') {
+                        return false;
+                    } elseif ($result->status == '500') {
+                        return false;
+                    }
                 }
-            }
 
-            if (!empty($result->info)) {
-                if ($includeInfos) {
-                    return $result;
+                if (!empty($result->info)) {
+                    if ($includeInfos) {
+                        return $result;
+                    } else {
+                        if (!empty($result->records)) {
+                            return $result->records;
+                        } else {
+                            return null;
+                        }
+                    }
                 } else {
-                    if (!empty($result->records)) {
-                        return $result->records;
+                    if (empty($result->error)) {
+                        return $result;
                     } else {
                         return null;
                     }
                 }
-            } else {
-                if (empty($result->error)) {
-                    return $result;
-                } else {
-                    return null;
-                }
             }
+        } catch (RequestException $e) {
+            Log::error('HAM API Error: ' . $e->getMessage(), [
+                'url' => $url,
+                'status' => $e->response->status(),
+                'body' => $e->response->body()
+            ]);
+            return false;
+        } catch (Exception $e) {
+            Log::error('HAM API Unexpected Error: ' . $e->getMessage());
+            return false;
         }
-    }
-
-    private function curlOp($method, $url, $data = false)
-    {
-        $curl = curl_init();
-
-        switch ($method) {
-            case "POST":
-                curl_setopt($curl, CURLOPT_POST, 1);
-
-                if ($data) {
-                    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-                }
-                break;
-            case "PUT":
-                curl_setopt($curl, CURLOPT_PUT, 1);
-                break;
-            default:
-                if ($data) {
-                    $url = sprintf("%s?%s", $url, http_build_query($data));
-                }
-        }
-
-        // Optional Authentication:
-        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($curl, CURLOPT_USERPWD, "username:password");
-
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_VERBOSE, 1);
-
-        return curl_exec($curl);
     }
 }
