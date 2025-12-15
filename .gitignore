@@ -1,3 +1,15 @@
+/vendor/
+/node_modules/
+/coverage/
+/.phpunit.cache/
+/.idea/
+/.vscode/
 .DS_Store
-
-vendor/
+.env
+.env.backup
+.phpunit.result.cache
+composer.lock
+package-lock.json
+yarn.lock
+*.log
+*.cache
