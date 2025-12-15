@@ -91,6 +91,116 @@ $exhibitions = HamApi::exhibitions(['status' => 'current']);
 $exhibition = HamApi::exhibition(789);
 ```
 
+### Using Resource-Specific Facades (Recommended)
+
+The package provides fluent query builders for each resource type:
+
+#### Objects
+```php
+use Harvardartmuseums\HamAPI\Facades\Objects;
+
+// Simple queries
+$paintings = Objects::classification('Paintings')->get();
+$onView = Objects::onView()->hasImage()->limit(20)->get();
+
+// Complex queries
+$objects = Objects::classification(['Paintings', 'Drawings'])
+    ->century('19th century')
+    ->culture('French')
+    ->hasImage()
+    ->sort('rank')
+    ->limit(50)
+    ->get();
+
+// Find by ID
+$object = Objects::find(123456);
+
+// Get first matching object
+$first = Objects::keyword('monet')->first();
+
+// Get count
+$count = Objects::classification('Photographs')->count();
+```
+
+#### People
+```php
+use Harvardartmuseums\HamAPI\Facades\People;
+
+// Find artists
+$artists = People::role('Artist')->minObjectCount(10)->get();
+
+// Search by name
+$monet = People::name('Claude Monet')->first();
+
+// Filter by culture and gender
+$people = People::culture('French')
+    ->gender('male')
+    ->role('Artist')
+    ->limit(100)
+    ->get();
+```
+
+#### Exhibitions
+```php
+use Harvardartmuseums\HamAPI\Facades\Exhibitions;
+
+// Get current exhibitions
+$current = Exhibitions::current()->get();
+
+// Get past exhibitions with images
+$past = Exhibitions::past()->hasImage()->get();
+
+// Search by venue
+$exhibitions = Exhibitions::venue('Harvard Art Museums')
+    ->dateRange('2020-01-01', '2023-12-31')
+    ->get();
+
+// Sort by temporal order
+$sorted = Exhibitions::temporalOrder()->get();
+```
+
+#### Publications
+```php
+use Harvardartmuseums\HamAPI\Facades\Publications;
+
+// Find books published in a year range
+$books = Publications::yearRange(2010, 2020)
+    ->publicationType('Book')
+    ->get();
+
+// Search by ISBN
+$publication = Publications::isbn('978-0-123456-78-9')->first();
+
+// Get primary publications only
+$primary = Publications::primaryOnly()->temporalOrder()->get();
+```
+
+### Using the Browse Service
+
+The BrowseService provides optimized searching across objects:
+
+```php
+use Harvardartmuseums\HamAPI\Services\BrowseService;
+
+$browseService = app(BrowseService::class);
+
+// Search with smart query handling
+$results = $browseService->search([
+    'q' => 'monet',           // Searches gallery, object number, then keyword
+    'classification' => 'Paintings',
+    'onview' => true,
+    'hasimage' => true
+], $offset = 0, $limit = 20);
+
+// Browse specific contexts
+$galleryObjects = $browseService->browseGallery(1200, ['limit' => 50]);
+$exhibitionObjects = $browseService->browseExhibition(5000);
+$artistWorks = $browseService->browsePerson(123, ['role' => 'Artist']);
+
+// Get random objects
+$random = $browseService->random(10, ['hasimage' => true]);
+```
+
 ### Using Dependency Injection
 
 ```php
@@ -162,6 +272,9 @@ The package includes Data Transfer Objects for type-safe handling of API respons
 ```php
 use Harvardartmuseums\HamAPI\DTOs\ApiResponse;
 use Harvardartmuseums\HamAPI\DTOs\ArtObject;
+use Harvardartmuseums\HamAPI\DTOs\Person;
+use Harvardartmuseums\HamAPI\DTOs\Exhibition;
+use Harvardartmuseums\HamAPI\DTOs\Publication;
 
 // Get objects and wrap in DTO
 $response = HamApi::objects(['size' => 10]);
@@ -183,6 +296,36 @@ foreach ($apiResponse->records as $record) {
         echo $artObject->primaryimageurl;
     }
 }
+
+// Work with people
+$personData = People::find(123);
+$person = Person::fromArray($personData);
+
+echo $person->getDisplayName();
+echo $person->getLifeDates(); // "1840-1926"
+if ($person->isArtist()) {
+    echo "Object count: " . $person->objectcount;
+}
+
+// Work with exhibitions
+$exhibitionData = Exhibitions::find(789);
+$exhibition = Exhibition::fromArray($exhibitionData);
+
+echo $exhibition->getDisplayTitle();
+echo $exhibition->getDateRange(); // "January 15 – March 30, 2024"
+echo $exhibition->getPrimaryVenue();
+
+if ($exhibition->isCurrent()) {
+    echo "Currently on view!";
+}
+
+// Work with publications
+$publicationData = Publications::find(999);
+$publication = Publication::fromArray($publicationData);
+
+echo $publication->getDisplayTitle();
+echo $publication->getAuthorsString(); // "John Doe and Jane Smith"
+echo $publication->getFormattedCitation();
 ```
 
 ### Generic Requests

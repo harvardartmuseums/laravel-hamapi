@@ -44,7 +44,11 @@
                 "Harvardartmuseums\\HamAPI\\Providers\\HamApiServiceProvider"
             ],
             "aliases": {
-                "HamApi": "Harvardartmuseums\\HamAPI\\Facades\\HamApi"
+                "HamApi": "Harvardartmuseums\\HamAPI\\Facades\\HamApi",
+                "HamObjects": "Harvardartmuseums\\HamAPI\\Facades\\Objects",
+                "HamPeople": "Harvardartmuseums\\HamAPI\\Facades\\People",
+                "HamExhibitions": "Harvardartmuseums\\HamAPI\\Facades\\Exhibitions",
+                "HamPublications": "Harvardartmuseums\\HamAPI\\Facades\\Publications"
             }
         }
     },
