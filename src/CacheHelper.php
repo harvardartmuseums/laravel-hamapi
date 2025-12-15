@@ -20,7 +20,7 @@ class CacheHelper
         $cacheEnabled = config('hamapi.imagecache.enabled');
 
         $cacheServerStatus = Cache::remember('cache_server_status', 900, function () {
-            return is_array(@get_headers('https://' . config('hamapi.imagecache.ids')));
+            return false;
         });
 
        

@@ -78,7 +78,7 @@ class HamClass
         $hamAPI = new HamApi();
         $result = $hamAPI->getDatas($this);
         $this->cleanFilters();
-        $result = \Harvardartmuseums\HamAPI\CacheHelper::cacheify($result);
+        // $result = \Harvardartmuseums\HamAPI\CacheHelper::cacheify($result);
         return $result;
     }
 
