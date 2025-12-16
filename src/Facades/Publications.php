@@ -54,7 +54,7 @@ class Publications extends Facade
     /**
      * Resolve a new instance of the query builder.
      */
-    protected static function getFacadeRoot()
+    public static function getFacadeRoot()
     {
         return app(PublicationQueryBuilder::class);
     }
