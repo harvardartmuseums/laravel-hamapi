@@ -45,7 +45,7 @@ return [
     */
     'cache' => [
         'enabled' => env('HAM_API_CACHE_ENABLED', true),
-        'ttl' => env('HAM_API_CACHE_TTL', 900), // 15 minutes in seconds
+        'ttl' => (int) env('HAM_API_CACHE_TTL', 900), // 15 minutes in seconds
         'prefix' => env('HAM_API_CACHE_PREFIX', 'hamapi'),
     ],
 
@@ -58,9 +58,9 @@ return [
     |
     */
     'request' => [
-        'timeout' => env('HAM_API_REQUEST_TIMEOUT', 30),
-        'retry_times' => env('HAM_API_RETRY_TIMES', 3),
-        'retry_delay' => env('HAM_API_RETRY_DELAY', 100), // milliseconds
+        'timeout' => (int) env('HAM_API_REQUEST_TIMEOUT', 30),
+        'retry_times' => (int) env('HAM_API_RETRY_TIMES', 3),
+        'retry_delay' => (int) env('HAM_API_RETRY_DELAY', 100), // milliseconds
     ],
 
     /*
