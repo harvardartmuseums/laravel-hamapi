@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0-beta2] - 2025-12-16
+
 ### Added
 - Complete package modernization for Laravel 10, 11, and 12 compatibility
 - PHP 8.1+ support with strict types and modern syntax
@@ -37,10 +39,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Manual cURL implementations
 - Hardcoded configuration values
 - Complex manual URL building logic
-
-## [1.0.0] - Previous Release
-
-- Initial package implementation
-- Basic HAM API integration
-- Laravel service provider
-- Simple caching support
