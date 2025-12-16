@@ -32,6 +32,9 @@ return [
     */
     'base_url' => env('HAM_API_BASE_URL', 'https://api.harvardartmuseums.org'),
 
+    // Backward compatibility alias for base_url
+    'api_url' => env('HAM_API_BASE_URL', 'https://api.harvardartmuseums.org'),
+
     /*
     |--------------------------------------------------------------------------
     | Cache Configuration

@@ -18,7 +18,7 @@ class HamApi
     public function __construct()
     {
         $this->_api_key = config('hamapi.api_key');
-        $this->_api_url = config('hamapi.api_url');
+        $this->_api_url = config('hamapi.base_url', 'https://api.harvardartmuseums.org');
         if (empty($this->_api_key)) {
             throw new \Exception('No API Key has been set');
         }

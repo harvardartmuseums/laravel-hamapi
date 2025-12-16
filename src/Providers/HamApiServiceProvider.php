@@ -74,6 +74,47 @@ class HamApiServiceProvider extends ServiceProvider
         $this->app->alias(PersonQueryBuilder::class, 'hamapi.people');
         $this->app->alias(ExhibitionQueryBuilder::class, 'hamapi.exhibitions');
         $this->app->alias(PublicationQueryBuilder::class, 'hamapi.publications');
+
+        // Register backward compatibility bindings for old facades
+        $this->registerBackwardCompatibilityBindings();
+    }
+
+    /**
+     * Register backward compatibility bindings for old facade classes.
+     */
+    protected function registerBackwardCompatibilityBindings(): void
+    {
+        // Map of old binding names to their class implementations
+        $bindings = [
+            'hamclass' => \Harvardartmuseums\HamAPI\Classes\HamClass::class,
+            'hamobject' => \Harvardartmuseums\HamAPI\Classes\HamObject::class,
+            'hamobjectentries' => \Harvardartmuseums\HamAPI\Classes\HamObjectEntries::class,
+            'hamexhibition' => \Harvardartmuseums\HamAPI\Classes\HamExhibition::class,
+            'hamgroup' => \Harvardartmuseums\HamAPI\Classes\HamGroup::class,
+            'hamperson' => \Harvardartmuseums\HamAPI\Classes\HamPerson::class,
+            'hampublication' => \Harvardartmuseums\HamAPI\Classes\HamPublication::class,
+            'hamgallery' => \Harvardartmuseums\HamAPI\Classes\HamGallery::class,
+            'hamplace' => \Harvardartmuseums\HamAPI\Classes\HamPlace::class,
+            'hamclassification' => \Harvardartmuseums\HamAPI\Classes\HamClassification::class,
+            'hamspectrum' => \Harvardartmuseums\HamAPI\Classes\HamSpectrum::class,
+            'hamperiod' => \Harvardartmuseums\HamAPI\Classes\HamPeriod::class,
+            'hamculture' => \Harvardartmuseums\HamAPI\Classes\HamCulture::class,
+            'hamcentury' => \Harvardartmuseums\HamAPI\Classes\HamCentury::class,
+            'hammedium' => \Harvardartmuseums\HamAPI\Classes\HamMedium::class,
+            'hamcustomcollection' => \Harvardartmuseums\HamAPI\Classes\HamCustomCollection::class,
+            'hamcustomcollectionvalue' => \Harvardartmuseums\HamAPI\Classes\HamCustomCollectionValue::class,
+            'hamtechnique' => \Harvardartmuseums\HamAPI\Classes\HamTechnique::class,
+            'hamcolor' => \Harvardartmuseums\HamAPI\Classes\HamColor::class,
+            'hamworktype' => \Harvardartmuseums\HamAPI\Classes\HamWorktype::class,
+            'hamtour' => \Harvardartmuseums\HamAPI\Classes\HamTour::class,
+            'hamuser' => \Harvardartmuseums\HamAPI\Classes\HamUser::class,
+        ];
+
+        foreach ($bindings as $alias => $class) {
+            $this->app->bind($alias, function () use ($class) {
+                return new $class;
+            });
+        }
     }
 
     /**

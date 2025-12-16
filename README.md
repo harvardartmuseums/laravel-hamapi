@@ -383,6 +383,20 @@ Run static analysis with PHPStan:
 composer analyse
 ```
 
+## Backward Compatibility
+
+This package maintains full backward compatibility with the previous version. All existing facade classes (e.g., `HamSpectrumFacade`, `HamObjectFacade`) continue to work as before:
+
+```php
+use Harvardartmuseums\HamAPI\Classes\HamSpectrumFacade;
+
+// Old syntax still works
+$spectrum = HamSpectrumFacade::find(123);
+$results = HamSpectrumFacade::limit(10)->sortorder('desc')->findCount();
+```
+
+However, we recommend using the new query builder pattern for new code as it provides better type safety and IDE support.
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
