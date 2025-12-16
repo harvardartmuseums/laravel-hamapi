@@ -393,7 +393,18 @@ class HamApiClient implements HamApiClientInterface
             $this->logRequest($endpoint, $params);
 
             $response = $this->httpClient->get($endpoint, $params);
-            $response->throw();
+            
+            // Check if response was successful - throw exception if not
+            // This ensures exceptions are thrown even with HTTP fakes
+            if (! $response->successful()) {
+                $this->logError($endpoint, new RequestException($response));
+
+                throw new ApiRequestException(
+                    'HAM API request failed: HTTP request returned status code ' . $response->status(),
+                    $response->status(),
+                    $response->body()
+                );
+            }
 
             $data = $response->json();
 

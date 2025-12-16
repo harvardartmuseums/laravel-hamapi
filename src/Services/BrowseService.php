@@ -81,8 +81,8 @@ class BrowseService
         $tempBuilder = clone $builder;
         $tempBuilder->gallery($filters['q']);
 
-        // Apply other filters
-        $this->applyFilters($tempBuilder, $filters, ['q', 'gallery']);
+        // Apply other filters, but exclude 'q', 'gallery', and 'onview' since we're searching by specific gallery
+        $this->applyFilters($tempBuilder, $filters, ['q', 'gallery', 'onview']);
 
         $result = $tempBuilder->get();
         if ($result['info']['totalrecords'] > 0) {

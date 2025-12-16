@@ -24,6 +24,15 @@ class BrowseServiceTest extends TestCase
 
     public function test_search_with_keyword(): void
     {
+        // First, object number search returns no results (so it falls back to keyword)
+        $this->mockClient->shouldReceive('objects')
+            ->with(Mockery::on(function ($params) {
+                return isset($params['objectnumber']) && $params['objectnumber'] === 'monet';
+            }))
+            ->once()
+            ->andReturn(['info' => ['totalrecords' => 0], 'records' => []]);
+
+        // Then keyword search is performed
         $this->mockClient->shouldReceive('objects')
             ->with(Mockery::on(function ($params) {
                 return $params['keyword'] === 'monet' &&

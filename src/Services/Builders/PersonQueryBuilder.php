@@ -125,4 +125,15 @@ class PersonQueryBuilder extends QueryBuilder
     {
         return $this->where('yearmade', $yearStart . '-' . $yearEnd);
     }
+
+    /**
+     * Get all records matching the current query.
+     * Override to use 'people' instead of 'persons'.
+     *
+     * @return array<string, mixed>
+     */
+    public function get(): array
+    {
+        return $this->client->people($this->parameters);
+    }
 }

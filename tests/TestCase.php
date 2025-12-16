@@ -23,6 +23,23 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
+     * Get package aliases.
+     *
+     * @param \Illuminate\Foundation\Application $app
+     * @return array<string, class-string>
+     */
+    protected function getPackageAliases($app): array
+    {
+        return [
+            'HamApi' => \Harvardartmuseums\HamAPI\Facades\HamApi::class,
+            'HamObjects' => \Harvardartmuseums\HamAPI\Facades\Objects::class,
+            'HamPeople' => \Harvardartmuseums\HamAPI\Facades\People::class,
+            'HamExhibitions' => \Harvardartmuseums\HamAPI\Facades\Exhibitions::class,
+            'HamPublications' => \Harvardartmuseums\HamAPI\Facades\Publications::class,
+        ];
+    }
+
+    /**
      * Define environment setup.
      *
      * @param \Illuminate\Foundation\Application $app
