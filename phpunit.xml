@@ -21,7 +21,6 @@
         </include>
     </source>
     <php>
-        <env name="HAM_API_KEY" value="test-api-key"/>
         <env name="HAM_API_CACHE_ENABLED" value="false"/>
     </php>
 </phpunit>
