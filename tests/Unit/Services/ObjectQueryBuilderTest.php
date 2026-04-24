@@ -24,146 +24,204 @@ class ObjectQueryBuilderTest extends TestCase
 
     public function test_it_filters_by_classification(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with(['classification' => 'Paintings'])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->classification('Paintings')->get();
+        $result = $this->builder->classification('Paintings')->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_it_filters_by_multiple_classifications(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with(['classification' => 'Paintings|Drawings'])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->classification(['Paintings', 'Drawings'])->get();
+        $result = $this->builder->classification(['Paintings', 'Drawings'])->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_it_filters_by_gallery(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with(['gallery' => 1200])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->gallery(1200)->get();
+        $result = $this->builder->gallery(1200)->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_it_filters_by_multiple_galleries(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with(['gallery' => '1200|1300|1400'])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->gallery(['1200', '1300', '1400'])->get();
+        $result = $this->builder->gallery(['1200', '1300', '1400'])->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_it_filters_by_person(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with(['person' => 'Monet'])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->person('Monet')->get();
+        $result = $this->builder->person('Monet')->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_it_filters_by_object_number(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with(['objectnumber' => '1999.123'])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->objectNumber('1999.123')->get();
+        $result = $this->builder->objectNumber('1999.123')->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_it_filters_by_keyword(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with(['keyword' => 'landscape'])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->keyword('landscape')->get();
+        $result = $this->builder->keyword('landscape')->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_on_view_sets_gallery_to_any(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with(['gallery' => 'any'])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->onView()->get();
+        $result = $this->builder->onView()->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_on_view_false_does_not_set_gallery(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with([])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->onView(false)->get();
+        $result = $this->builder->onView(false)->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_has_image_filter(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with(['hasimage' => 1])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->hasImage()->get();
+        $result = $this->builder->hasImage()->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_has_image_false_filter(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with(['hasimage' => 0])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->hasImage(false)->get();
+        $result = $this->builder->hasImage(false)->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_date_range_filter(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with(['yearmade' => '1850-1900'])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->dateRange(1850, 1900)->get();
+        $result = $this->builder->dateRange(1850, 1900)->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_accession_year_filter(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with(['accessionyear' => 2020])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->accessionYear(2020)->get();
+        $result = $this->builder->accessionYear(2020)->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_custom_parameters(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with(['foo' => 'bar', 'baz' => 'qux'])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->custom(['foo' => 'bar', 'baz' => 'qux'])->get();
+        $result = $this->builder->custom(['foo' => 'bar', 'baz' => 'qux'])->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_chained_filters(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with([
                 'classification' => 'Paintings',
@@ -175,9 +233,9 @@ class ObjectQueryBuilderTest extends TestCase
                 'sortorder' => 'desc'
             ])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder
+        $result = $this->builder
             ->classification('Paintings')
             ->century('19th century')
             ->culture('French')
@@ -186,6 +244,8 @@ class ObjectQueryBuilderTest extends TestCase
             ->sort('rank')
             ->sortOrder('desc')
             ->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     protected function tearDown(): void

@@ -24,122 +24,170 @@ class QueryBuilderTest extends TestCase
 
     public function test_it_sets_size_parameter(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with(['size' => 50])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->size(50)->get();
+        $result = $this->builder->size(50)->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_it_limits_size_to_api_maximum(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with(['size' => 100])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->size(200)->get();
+        $result = $this->builder->size(200)->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_limit_is_alias_for_size(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with(['size' => 25])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->limit(25)->get();
+        $result = $this->builder->limit(25)->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_it_sets_page_parameter(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with(['page' => 3])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->page(3)->get();
+        $result = $this->builder->page(3)->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_offset_converts_to_page(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with(['size' => 20, 'page' => 3])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->size(20)->offset(40)->get();
+        $result = $this->builder->size(20)->offset(40)->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_it_sets_sort_parameters(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with(['sort' => 'title', 'sortorder' => 'desc'])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->sort('title')->sortOrder('desc')->get();
+        $result = $this->builder->sort('title')->sortOrder('desc')->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_it_sets_fields_parameter(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with(['fields' => 'id,title,dated'])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->fields(['id', 'title', 'dated'])->get();
+        $result = $this->builder->fields(['id', 'title', 'dated'])->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_it_sets_fields_from_string(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with(['fields' => 'id,title'])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->fields('id,title')->get();
+        $result = $this->builder->fields('id,title')->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_it_sets_search_query(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with(['q' => 'monet'])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->search('monet')->get();
+        $result = $this->builder->search('monet')->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_query_is_alias_for_search(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with(['q' => 'picasso'])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->query('picasso')->get();
+        $result = $this->builder->query('picasso')->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_where_sets_parameters(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with(['custom_field' => 'value'])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->where('custom_field', 'value')->get();
+        $result = $this->builder->where('custom_field', 'value')->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_where_joins_array_values(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with(['colors' => 'red|blue|green'])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->where('colors', ['red', 'blue', 'green'])->get();
+        $result = $this->builder->where('colors', ['red', 'blue', 'green'])->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_find_calls_single_object_endpoint(): void
@@ -192,16 +240,22 @@ class QueryBuilderTest extends TestCase
 
     public function test_all_is_alias_for_get(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with([])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder->all();
+        $result = $this->builder->all();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_clone_creates_independent_instance(): void
     {
+        $expectedResult = ['records' => []];
+
         $original = $this->builder->size(10)->page(2);
         $clone = $original->clone();
 
@@ -211,24 +265,30 @@ class QueryBuilderTest extends TestCase
         $this->mockClient->shouldReceive('objects')
             ->with(['size' => 10, 'page' => 2])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $original->get();
+        $result = $original->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function test_reset_clears_all_parameters(): void
     {
+        $expectedResult = ['records' => []];
+
         $this->mockClient->shouldReceive('objects')
             ->with([])
             ->once()
-            ->andReturn(['records' => []]);
+            ->andReturn($expectedResult);
 
-        $this->builder
+        $result = $this->builder
             ->size(50)
             ->page(3)
             ->sort('title')
             ->reset()
             ->get();
+
+        $this->assertEquals($expectedResult, $result);
     }
 
     protected function tearDown(): void
